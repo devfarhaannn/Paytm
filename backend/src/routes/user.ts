@@ -3,9 +3,10 @@ import dotenv from 'dotenv'
 import {z} from 'zod'
 import { UserModel } from "../db";
 import jwt from 'jsonwebtoken'
+import { authMidlleware } from "../middlleware";
 dotenv.config();
 
-const JWT_PASSWORD = process.env.JWT_PASSWORD as string;
+const JWT_SECRET = process.env.JWT_PASSWORD as string;
 const userRouter = Router()
 
 
@@ -16,7 +17,7 @@ const signupBody = z.object({
     password: z.string().min(5).max(10)
 })
 
-userRouter.post("/sinup", async (req: Request , res: Response) =>{
+userRouter.post("/signup", async (req: Request , res: Response) =>{
    try{
     const parsed = signupBody.safeParse(req.body)
 
@@ -48,7 +49,7 @@ userRouter.post("/sinup", async (req: Request , res: Response) =>{
 
     const token = jwt.sign({
         userId
-    },JWT_PASSWORD)
+    },JWT_SECRET)
 
     res.json({
         token:token
@@ -64,5 +65,94 @@ userRouter.post("/sinup", async (req: Request , res: Response) =>{
 
 })
 
+const signinBody = z.object({
+    username: z.string().email(),
+    password: z.string()
+})
+
+userRouter.post("/signin", async(req: Request, res: Response) => {
+    const parsed = signinBody.safeParse(req.body)
+
+
+    if(!parsed.success){
+        res.status(411).json({
+            message:"email is already taken or incoorect credentials",
+            error:parsed.error
+        })
+    }
+    
+    const user = await UserModel.findOne({
+        username: req.body.username,
+        password: req.body.password
+    })
+    if(user){
+        const token = jwt.sign({
+            userId:user._id
+        },JWT_SECRET)
+        res.json({
+            token:token
+        })
+    } else {
+        res.status(411).json({
+            message: "Incorrect Credentials"
+        })
+    }
+})
+
+const updateBody = z.object({
+    password: z.string().optional(),
+    firstname: z.string().optional(),
+    lastname: z.string().optional()
+
+})
+userRouter.put("/", authMidlleware, async(req: Request, res: Response)=>{
+    const parsed = updateBody.safeParse(req.body);
+
+    if(!parsed.success){
+        res.status(411).json({
+            message:"error while updating"
+        })
+        return
+    }
+
+
+     try {
+        
+        const updateUser = await UserModel.updateOne(
+            { _id :(req as any).userId } as any,
+            { $set : parsed.data } as any
+        )
+
+        res.json({
+            message: "Updated Successfully",
+            updateUser
+        })
+     } catch (error) {
+        res.status(500).json({
+            message: "Something went wrong during update"
+        })
+     }
+})
+
+userRouter.get("/bulk", async(req, res) => { 
+    const filter = (req.query.filter || "").toString();
+
+    const users = await UserModel.find({
+        $or: [
+            { username: { $regex: filter, $options: "i"} },
+            { firstname: { $regex: filter, $options: "i" } },
+            { lastname: { $regex: filter, $options: "i" } }
+        ]
+    } as any)
+      res.json({
+        user: users.map(user => ({
+            username: user.username,
+            firstName: user.firstname,
+            lastName: user.lastname,
+            _id: user._id
+        }))
+})
+
+})
 export default userRouter
 
