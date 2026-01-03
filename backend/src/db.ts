@@ -1,12 +1,16 @@
 import mongoose, { Schema } from "mongoose"
 
-mongoose.connect("mongodb+srv://bhattfarhan071804:c4kjrUzUcwf5rS4c@cluster0.v6qog.mongodb.net/paytm")
+import dotenv from 'dotenv'
+dotenv.config();
+const MONGO_URL = process.env.MONGO_URL as string
 
-const userSchema = new Schema ({
+mongoose.connect(MONGO_URL)
+
+const userSchema = new Schema({
     username: String,
     password: String,
-    firstname: String,   
+    firstname: String,
     lastname: String
 })
 
-export const UserModel = mongoose.model("user",userSchema)
+export const UserModel = mongoose.model("user", userSchema)
