@@ -32,7 +32,7 @@ userRouter.post("/signup", async (req: Request , res: Response) =>{
         username : req.body.username
     });
 
-    if(!existingUser){
+    if(existingUser){
         res.status(411).json({
             message: "User aleady exist with this email"
         })
@@ -52,7 +52,8 @@ userRouter.post("/signup", async (req: Request , res: Response) =>{
     },JWT_SECRET)
 
     res.json({
-        token:token
+        token:token,
+        message:"Signup Succesfully"
     })
 
    } 
