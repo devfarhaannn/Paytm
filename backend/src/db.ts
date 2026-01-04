@@ -23,9 +23,9 @@ const accountSchema = new Schema({
         ref: "User",
         required: true
     },
-    balance:{
+    balance: {
         type: Number,
-        required:true
+        required: true
 
     }
 })
