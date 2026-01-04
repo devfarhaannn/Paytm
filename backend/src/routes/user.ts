@@ -1,7 +1,7 @@
 import express, { Request, Response, Router } from "express"
 import dotenv from 'dotenv'
 import {z} from 'zod'
-import { UserModel } from "../db";
+import { AccountModel, UserModel } from "../db";
 import jwt from 'jsonwebtoken'
 import { authMidlleware } from "../middlleware";
 dotenv.config();
@@ -47,13 +47,22 @@ userRouter.post("/signup", async (req: Request , res: Response) =>{
 
     const userId = user._id
 
+    const account = await AccountModel.create({
+        userId,
+        balance : 1 + Math.random() * 10000
+    })
+
     const token = jwt.sign({
         userId
     },JWT_SECRET)
 
     res.json({
         token:token,
-        message:"Signup Succesfully"
+        message : "Signup Succesfully",
+        balance : account.balance,
+        user:{
+            name : user.firstname
+        }
     })
 
    } 
