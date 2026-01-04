@@ -42,12 +42,20 @@ userRouter.post("/signup", async (req, res) => {
             lastname: req.body.lastname
         });
         const userId = user._id;
+        const account = await db_1.AccountModel.create({
+            userId,
+            balance: 1 + Math.random() * 10000
+        });
         const token = jsonwebtoken_1.default.sign({
             userId
         }, JWT_SECRET);
         res.json({
             token: token,
-            message: "Signup Succesfully"
+            message: "Signup Succesfully",
+            balance: account.balance,
+            user: {
+                name: user.firstname
+            }
         });
     }
     catch (error) {
