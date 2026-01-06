@@ -2,7 +2,7 @@
 interface inputProps {
     label : string,
     placeholder : string,
-    
+    onChange? :(event : React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export function InputBox({label, placeholder, onChange} : inputProps) {
@@ -10,6 +10,6 @@ export function InputBox({label, placeholder, onChange} : inputProps) {
       <div className="text-sm font-medium text-left py-2">
         {label}
       </div>
-      <input placeholder={placeholder} className="w-full px-2 py-1 border rounded border-slate-200" />
+      <input onChange = {onChange}placeholder={placeholder} className="w-full px-2 py-1 border rounded border-slate-200" />
     </div>
 }
