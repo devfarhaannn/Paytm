@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router-dom"
 
+
 export const SendMoney = () => {
     const [searchParams] = useSearchParams();
 
