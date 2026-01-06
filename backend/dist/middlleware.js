@@ -11,7 +11,7 @@ const JWT_SECRET = process.env.JWT_PASSWORD;
 const authMidlleware = (req, res, next) => {
     const authHeader = req.headers["authorization"];
     // @ts-ignore
-    const token = authHeader?.split('')[1];
+    const token = authHeader?.split(' ')[1];
     if (!token) {
         res.status(411).json({
             message: "auth token is required"

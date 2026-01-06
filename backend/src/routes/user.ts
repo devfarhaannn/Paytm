@@ -22,7 +22,7 @@ userRouter.post("/signup", async (req: Request, res: Response) => {
         const parsed = signupBody.safeParse(req.body)
 
         if (!parsed.success) {
-            return res.status(411).json({
+            res.status(411).json({
                 message: "Zod validation failed",
                 error: parsed.error.format()
             })
@@ -33,7 +33,7 @@ userRouter.post("/signup", async (req: Request, res: Response) => {
         });
 
         if (existingUser) {
-            return res.status(411).json({
+            res.status(411).json({
                 message: "User aleady exist with this email"
             })
         }
@@ -85,7 +85,7 @@ userRouter.post("/signin", async (req: Request, res: Response) => {
 
 
     if (!parsed.success) {
-        return res.status(411).json({
+        res.status(411).json({
             message: "email is already taken or incoorect credentials",
             error: parsed.error
         })
