@@ -13,8 +13,8 @@ mongoose.connect(MONGO_URL)
 const userSchema = new Schema({
     username: String,
     password: String,
-    firstname: String,
-    lastname: String
+    firstName: String,
+    lastName: String
 })
 
 const accountSchema = new Schema({

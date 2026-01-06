@@ -22,7 +22,7 @@ userRouter.post("/signup", async (req: Request, res: Response) => {
         const parsed = signupBody.safeParse(req.body)
 
         if (!parsed.success) {
-            res.status(411).json({
+            return res.status(411).json({
                 message: "Zod validation failed",
                 error: parsed.error.format()
             })
@@ -33,7 +33,7 @@ userRouter.post("/signup", async (req: Request, res: Response) => {
         });
 
         if (existingUser) {
-            res.status(411).json({
+            return res.status(411).json({
                 message: "User aleady exist with this email"
             })
         }
@@ -41,8 +41,8 @@ userRouter.post("/signup", async (req: Request, res: Response) => {
         const user = await UserModel.create({
             username: req.body.username,
             password: req.body.password,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname
+            firstName: req.body.firstname,
+            lastName: req.body.lastname
         })
 
         const userId = user._id
@@ -61,7 +61,7 @@ userRouter.post("/signup", async (req: Request, res: Response) => {
             message: "Signup Succesfully",
             balance: account.balance,
             user: {
-                name: user.firstname
+                name: user.firstName
             }
         })
 
@@ -85,7 +85,7 @@ userRouter.post("/signin", async (req: Request, res: Response) => {
 
 
     if (!parsed.success) {
-        res.status(411).json({
+        return res.status(411).json({
             message: "email is already taken or incoorect credentials",
             error: parsed.error
         })
@@ -158,8 +158,8 @@ userRouter.get("/bulk", async (req, res) => {
     res.json({
         user: users.map(user => ({
             username: user.username,
-            firstName: user.firstname,
-            lastName: user.lastname,
+            firstName: user.firstName,
+            lastName: user.lastName,
             _id: user._id
         }))
     })

@@ -22,7 +22,7 @@ userRouter.post("/signup", async (req, res) => {
     try {
         const parsed = signupBody.safeParse(req.body);
         if (!parsed.success) {
-            res.status(411).json({
+            return res.status(411).json({
                 message: "Zod validation failed",
                 error: parsed.error.format()
             });
@@ -31,15 +31,15 @@ userRouter.post("/signup", async (req, res) => {
             username: req.body.username
         });
         if (existingUser) {
-            res.status(411).json({
+            return res.status(411).json({
                 message: "User aleady exist with this email"
             });
         }
         const user = await db_1.UserModel.create({
             username: req.body.username,
             password: req.body.password,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname
+            firstName: req.body.firstname,
+            lastName: req.body.lastname
         });
         const userId = user._id;
         const account = await db_1.AccountModel.create({
@@ -54,7 +54,7 @@ userRouter.post("/signup", async (req, res) => {
             message: "Signup Succesfully",
             balance: account.balance,
             user: {
-                name: user.firstname
+                name: user.firstName
             }
         });
     }
@@ -71,7 +71,7 @@ const signinBody = zod_1.z.object({
 userRouter.post("/signin", async (req, res) => {
     const parsed = signinBody.safeParse(req.body);
     if (!parsed.success) {
-        res.status(411).json({
+        return res.status(411).json({
             message: "email is already taken or incoorect credentials",
             error: parsed.error
         });
@@ -132,8 +132,8 @@ userRouter.get("/bulk", async (req, res) => {
     res.json({
         user: users.map(user => ({
             username: user.username,
-            firstName: user.firstname,
-            lastName: user.lastname,
+            firstName: user.firstName,
+            lastName: user.lastName,
             _id: user._id
         }))
     });

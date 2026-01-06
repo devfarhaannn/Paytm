@@ -48,8 +48,8 @@ mongoose_1.default.connect(MONGO_URL);
 const userSchema = new mongoose_1.Schema({
     username: String,
     password: String,
-    firstname: String,
-    lastname: String
+    firstName: String,
+    lastName: String
 });
 const accountSchema = new mongoose_1.Schema({
     userId: {

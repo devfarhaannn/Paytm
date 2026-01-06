@@ -10,10 +10,10 @@ export const authMidlleware = (req: Request, res: Response, next: NextFunction) 
     const authHeader = req.headers["authorization"]
 
     // @ts-ignore
-    const token = authHeader?.split(' ')[1];
-    if (!token) {
-        return res.status(411).json({
-            message: "auth token is required"
+    const token = authHeader?.split('')[1];
+    if(!token){
+        res.status(411).json({
+            message:"auth token is required"
         })
     }
 
@@ -21,18 +21,16 @@ export const authMidlleware = (req: Request, res: Response, next: NextFunction) 
         const decoded = jwt.verify(token as string, JWT_SECRET)
 
         // @ts-ignore
-        if (decoded.userId) {
+        if(decoded.userId){
             // @ts-ignore
             req.userId = decoded.userId
             next()
-        } else {
-            return res.status(403).json({
-                message: "Invalid token"
-            })
+        }else {
+            return res.status(403).json()
         }
-
+        
     } catch (error) {
-        return res.status(403).json({
+        res.status(403).json({
             message: "Invalid or expired token"
         })
     }

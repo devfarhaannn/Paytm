@@ -2,22 +2,22 @@ import mongoose from "mongoose";
 export declare const UserModel: mongoose.Model<{
     username?: string | null;
     password?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 }, {}, {}, {
     id: string;
 }, mongoose.Document<unknown, {}, {
     username?: string | null;
     password?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 }, {
     id: string;
 }, mongoose.DefaultSchemaOptions> & Omit<{
     username?: string | null;
     password?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -27,20 +27,20 @@ export declare const UserModel: mongoose.Model<{
 }, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
     username?: string | null;
     password?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 }, mongoose.Document<unknown, {}, {
     username?: string | null;
     password?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 }, {
     id: string;
 }, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & Omit<{
     username?: string | null;
     password?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -53,15 +53,15 @@ export declare const UserModel: mongoose.Model<{
     [x: string]: mongoose.SchemaDefinitionProperty<any, any, mongoose.Document<unknown, {}, {
         username?: string | null;
         password?: string | null;
-        firstname?: string | null;
-        lastname?: string | null;
+        firstName?: string | null;
+        lastName?: string | null;
     }, {
         id: string;
     }, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & Omit<{
         username?: string | null;
         password?: string | null;
-        firstname?: string | null;
-        lastname?: string | null;
+        firstName?: string | null;
+        lastName?: string | null;
     } & {
         _id: mongoose.Types.ObjectId;
     } & {
@@ -72,8 +72,8 @@ export declare const UserModel: mongoose.Model<{
 }, {
     username?: string | null;
     password?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -81,8 +81,8 @@ export declare const UserModel: mongoose.Model<{
 }>, {
     username?: string | null;
     password?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
