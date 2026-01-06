@@ -1,6 +1,6 @@
 import { BottomWarning } from "../components/BottomWarning"
 import { Button } from "../components/Button"
-import { Heading } from "../components/Heading"
+import { Heading } from "../components/MainHeading"
 import { InputBox } from "../components/InputBox"
 import { SubHeading } from "../components/SubHeading"
 
