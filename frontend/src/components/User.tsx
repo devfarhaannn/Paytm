@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { Button } from "./Button"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const Users = () => {
     // Replace with backend call
@@ -31,6 +32,7 @@ export const Users = () => {
 }
 
 const User = ({user} : {user: {firstName: string , lastName: string, _id: string}}) => {
+    const navigate = useNavigate()
     return <div className="flex justify-between">
         <div className="flex">
             <div className="rounded-full h-12 w-12 bg-slate-200 flex justify-center mt-1 mr-2">
@@ -46,7 +48,9 @@ const User = ({user} : {user: {firstName: string , lastName: string, _id: string
         </div>
 
         <div className="flex flex-col justify-center h-ful">
-            <Button label={"Send Money"} />
+            <Button onClick = {() => {
+                navigate("/sendmoney?id=" + user._id + "&name=" + user.firstName)
+            }}label={"Send Money"} />
         </div>
     </div>
 }
