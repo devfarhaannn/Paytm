@@ -11,9 +11,9 @@ const JWT_SECRET = process.env.JWT_PASSWORD;
 const authMidlleware = (req, res, next) => {
     const authHeader = req.headers["authorization"];
     // @ts-ignore
-    const token = authHeader?.split(' ')[1];
+    const token = authHeader?.split('')[1];
     if (!token) {
-        return res.status(411).json({
+        res.status(411).json({
             message: "auth token is required"
         });
     }
@@ -26,13 +26,11 @@ const authMidlleware = (req, res, next) => {
             next();
         }
         else {
-            return res.status(403).json({
-                message: "Invalid token"
-            });
+            return res.status(403).json();
         }
     }
     catch (error) {
-        return res.status(403).json({
+        res.status(403).json({
             message: "Invalid or expired token"
         });
     }
