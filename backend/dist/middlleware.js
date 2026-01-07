@@ -10,6 +10,9 @@ dotenv_1.default.config();
 const JWT_SECRET = process.env.JWT_PASSWORD;
 const authMidlleware = (req, res, next) => {
     const authHeader = req.headers["authorization"];
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(403).json({});
+    }
     // @ts-ignore
     const token = authHeader?.split(' ')[1];
     if (!token) {
@@ -31,7 +34,7 @@ const authMidlleware = (req, res, next) => {
     }
     catch (error) {
         res.status(403).json({
-            message: "Invalid or expired token"
+            message: "Invalid or expired token",
         });
     }
 };

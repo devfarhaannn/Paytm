@@ -9,6 +9,10 @@ const JWT_SECRET = process.env.JWT_PASSWORD as string
 export const authMidlleware = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers["authorization"]
 
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(403).json({});
+    }
+
     // @ts-ignore
     const token = authHeader?.split(' ')[1];
     if(!token){
@@ -30,8 +34,9 @@ export const authMidlleware = (req: Request, res: Response, next: NextFunction) 
         }
         
     } catch (error) {
+        
         res.status(403).json({
-            message: "Invalid or expired token"
+            message: "Invalid or expired token",
         })
     }
 }

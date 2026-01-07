@@ -41,7 +41,7 @@ accountRouter.post("/transfer", middlleware_1.authMidlleware, async (req, res) =
     }
     await db_1.AccountModel.updateOne({ userId: req.userId }, { $inc: { balance: -amount } }).session(session);
     await db_1.AccountModel.updateOne({ userId: to }, { $inc: { balance: amount } }).session(session);
-    session.commitTransaction();
+    await session.commitTransaction();
     res.json({
         message: "Transfer Successfully"
     });

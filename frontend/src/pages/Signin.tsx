@@ -1,4 +1,4 @@
-import { BottomWarning } from "../components/BottomWarning"
+import { BottomWarning } from "../components/BottomWarming"
 import { Button } from "../components/Button"
 import { Heading } from "../components/MainHeading"
 import { InputBox } from "../components/InputBox"
