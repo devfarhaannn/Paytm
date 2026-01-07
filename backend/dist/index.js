@@ -7,11 +7,14 @@ const express_1 = __importDefault(require("express"));
 const routes_1 = require("./routes");
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
-// Load environment variables first, before any other imports
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+const PORT = process.env.PORT;
 app.use("/api/v1", routes_1.rootRouter);
-app.listen(3000);
+app.get("/", (req, res) => {
+    res.redirect("/api/v1/user/signup");
+});
+app.listen(PORT);
 //# sourceMappingURL=index.js.map
