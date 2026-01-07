@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { AccountModel, UserModel } from "../db";
 import jwt from 'jsonwebtoken'
 import { authMidlleware } from "../middlleware";
+import bcrypt from "bcrypt"
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_PASSWORD as string;
@@ -37,7 +38,9 @@ userRouter.post("/signup", async (req: Request, res: Response) => {
                 message: "User aleady exist with this email"
             })
         }
-
+        
+        const hsshedPAssword  = await bcrypt.hash(req.body.password ,10)
+    
         const user = await UserModel.create({
             username: req.body.username,
             password: req.body.password,
@@ -96,6 +99,13 @@ userRouter.post("/signin", async (req: Request, res: Response) => {
         password: req.body.password
     })
 
+    const isCorrectPassword = await bcrypt.compare(
+        //@ts-ignore
+        parsed.data?.password,
+        user?.password
+    )
+
+
     if (user) {
         const token = jwt.sign({
             userId: user._id
@@ -124,6 +134,10 @@ userRouter.put("/", authMidlleware, async (req: Request, res: Response) => {
             message: "error while updating"
         })
         return
+    }
+
+    if(parsed.data.password){
+        parsed.data.password = await bcrypt.hash(parsed.data.password,10)
     }
 
 

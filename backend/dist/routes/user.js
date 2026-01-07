@@ -9,6 +9,7 @@ const zod_1 = require("zod");
 const db_1 = require("../db");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const middlleware_1 = require("../middlleware");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 dotenv_1.default.config();
 const JWT_SECRET = process.env.JWT_PASSWORD;
 const userRouter = (0, express_1.Router)();
@@ -35,6 +36,7 @@ userRouter.post("/signup", async (req, res) => {
                 message: "User aleady exist with this email"
             });
         }
+        const hsshedPAssword = await bcrypt_1.default.hash(req.body.password, 10);
         const user = await db_1.UserModel.create({
             username: req.body.username,
             password: req.body.password,
@@ -80,6 +82,9 @@ userRouter.post("/signin", async (req, res) => {
         username: req.body.username,
         password: req.body.password
     });
+    const isCorrectPassword = await bcrypt_1.default.compare(
+    //@ts-ignore
+    parsed.data?.password, user?.password);
     if (user) {
         const token = jsonwebtoken_1.default.sign({
             userId: user._id
@@ -106,6 +111,9 @@ userRouter.put("/", middlleware_1.authMidlleware, async (req, res) => {
             message: "error while updating"
         });
         return;
+    }
+    if (parsed.data.password) {
+        parsed.data.password = await bcrypt_1.default.hash(parsed.data.password, 10);
     }
     try {
         const updateUser = await db_1.UserModel.updateOne({ _id: req.userId }, { $set: parsed.data });
