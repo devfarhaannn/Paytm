@@ -1,9 +1,9 @@
 
-interface BalanceProps{
-    value : any
+interface BalanceProps {
+    value: any
 }
 
-export const Balance = ({ value } : BalanceProps) => {
+export const Balance = ({ value }: BalanceProps) => {
     return <div className="flex">
         <div className="font-bold text-lg">
             Your balance

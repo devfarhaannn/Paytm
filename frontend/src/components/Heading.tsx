@@ -5,6 +5,6 @@ interface labelprops {
 
 export const Heading = ({ label }: labelprops) => {
     return <div className="font-bold text-4xl pt-6">
-       {label}
+        {label}
     </div>
 }
