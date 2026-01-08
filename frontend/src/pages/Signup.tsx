@@ -8,40 +8,40 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 export const Signup = () => {
-  const [firstname , setFirstName] = useState("");
-  const [lastname , setLasttName] = useState("");
-  const [username , setUserName] = useState("");
-  const [password , setPassword] = useState("");
-  const navigate  = useNavigate()
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLasttName] = useState("");
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
-    return <div className="bg-slate-300 h-screen flex justify-center">
+  return <div className="bg-slate-300 h-screen flex justify-center">
     <div className="flex flex-col justify-center">
       <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
         <Heading label={"Sign up"} />
         <SubHeading label={"Enter your infromation to create an account"} />
-        <InputBox onChange = {(e) => {
+        <InputBox onChange={(e) => {
           setFirstName(e.target.value)
-        }}placeholder="Farhan" label={"First Name"} />
-        <InputBox onChange = {(e) => {
+        }} placeholder="Farhan" label={"First Name"} />
+        <InputBox onChange={(e) => {
           setLasttName(e.target.value)
-        }}placeholder="Bhatt" label={"Last Name"} />
-        <InputBox onChange = {(e) => {
+        }} placeholder="Bhatt" label={"Last Name"} />
+        <InputBox onChange={(e) => {
           setUserName(e.target.value)
-        }}placeholder="bhatt@gmail.com" label={"Email"} />
-        <InputBox onChange = {(e) => { 
+        }} placeholder="bhatt@gmail.com" label={"Email"} />
+        <InputBox onChange={(e) => {
           setPassword(e.target.value)
-        }}placeholder="123456" label={"Password"} />
+        }} placeholder="123456" label={"Password"} />
         <div className="pt-4">
-          <Button onClick = {async() => {
-             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/signup`, {
+          <Button onClick={async () => {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/signup`, {
               username,
               password,
               firstname,
               lastname
             })
-            localStorage.setItem("token",response.data.token)
+            localStorage.setItem("token", response.data.token)
             navigate("/dashboard");
-          }}label={"Sign up"} />
+          }} label={"Sign up"} />
         </div>
         <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
       </div>
