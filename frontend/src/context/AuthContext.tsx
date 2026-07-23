@@ -5,8 +5,10 @@ import {
   useState,
 } from "react";
 
-import { getProfile } from "../services/auth.service";
-import { isAuthenticated } from "../services/auth.service";
+import {
+  getProfile,
+  isAuthenticated,
+} from "../services/auth.service";
 
 interface User {
   id: string;
@@ -25,25 +27,27 @@ interface AuthContextType {
   refreshUser: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | null>(
-  null
-);
+const AuthContext =
+  createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [user, setUser] = useState<User | null>(
-    null
-  );
+  const [user, setUser] =
+    useState<User | null>(null);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] =
+    useState(true);
 
   const refreshUser = async () => {
     try {
+      setLoading(true);
+
       if (!isAuthenticated()) {
         setUser(null);
+        setLoading(false);
         return;
       }
 
@@ -52,7 +56,6 @@ export const AuthProvider = ({
       setUser(profile);
     } catch (error) {
       console.error(error);
-
       setUser(null);
     } finally {
       setLoading(false);

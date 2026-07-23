@@ -12,16 +12,19 @@ import { PasswordInput } from "../components/ui/PasswordInput";
 import { Button } from "../components/ui/Button";
 
 import { signup } from "../services/auth.service";
+import { useAuth } from "../context/AuthContext";
 
 export const SignUp = () => {
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] =
+    useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -31,11 +34,11 @@ export const SignUp = () => {
     e.preventDefault();
 
     if (
-      !firstname ||
-      !lastname ||
-      !email ||
-      !password ||
-      !confirmPassword
+      !firstname.trim() ||
+      !lastname.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
     ) {
       toast.error("Please fill in all fields.");
       return;
@@ -56,6 +59,9 @@ export const SignUp = () => {
         password,
       });
 
+      // Fetch logged-in user's profile immediately
+      await refreshUser();
+
       toast.success("Account created successfully!");
 
       navigate("/dashboard");
@@ -63,7 +69,7 @@ export const SignUp = () => {
       if (axios.isAxiosError(error)) {
         toast.error(
           error.response?.data?.message ||
-          "Signup failed."
+            "Signup failed."
         );
       } else {
         toast.error("Something went wrong.");

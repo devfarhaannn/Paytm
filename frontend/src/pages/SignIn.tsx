@@ -12,9 +12,11 @@ import { PasswordInput } from "../components/ui/PasswordInput";
 import { Button } from "../components/ui/Button";
 
 import { login } from "../services/auth.service";
+import { useAuth } from "../context/AuthContext";
 
 export const SignIn = () => {
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,6 +41,9 @@ export const SignIn = () => {
         password,
       });
 
+      // Fetch the logged-in user's profile immediately
+      await refreshUser();
+
       toast.success("Welcome Back!");
 
       navigate("/dashboard");
@@ -46,7 +51,7 @@ export const SignIn = () => {
       if (axios.isAxiosError(error)) {
         toast.error(
           error.response?.data?.message ||
-          "Invalid email or password."
+            "Invalid email or password."
         );
       } else {
         toast.error("Something went wrong.");
