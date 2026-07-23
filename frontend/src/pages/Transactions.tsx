@@ -25,9 +25,6 @@ export const Transactions = () => {
     const fetchTransactions = async () => {
       try {
         const data = await getTransactions();
-        //console.log(data); // 
-
-
         setTransactions(data);
       } catch (error) {
         console.error(error);

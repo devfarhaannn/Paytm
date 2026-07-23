@@ -37,7 +37,6 @@ export const ThemeProvider = ({
     }, []);
 
     useEffect(() => {
-        //console.log("Current Theme:", theme);
 
         document.documentElement.classList.toggle(
             "dark",
@@ -61,9 +60,6 @@ export const ThemeProvider = ({
                 prev === "light"
                     ? "dark"
                     : "light";
-
-            console.log("Previous:", prev);
-            console.log("Next:", next);
 
             return next;
         });
