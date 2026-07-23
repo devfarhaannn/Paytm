@@ -1,50 +1,137 @@
-import { BottomWarning } from "../components/BottomWarming"
-import { Button } from "../components/Button"
-import { Heading } from "../components/MainHeading"
-import { InputBox } from "../components/InputBox"
-import { SubHeading } from "../components/SubHeading"
-import { useState } from "react"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-export const Signup = () => {
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLasttName] = useState("");
-  const [username, setUserName] = useState("");
+import { AuthLayout } from "../components/layout/AuthLayout";
+import { AuthHeader } from "../components/auth/AuthHeader";
+import { AuthForm } from "../components/auth/AuthForm";
+
+import { Input } from "../components/ui/Input";
+import { PasswordInput } from "../components/ui/PasswordInput";
+import { Button } from "../components/ui/Button";
+
+import { signup } from "../services/auth.service";
+
+export const SignUp = () => {
+  const navigate = useNavigate();
+
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  return <div className="bg-slate-300 h-screen flex justify-center">
-    <div className="flex flex-col justify-center">
-      <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
-        <Heading label={"Sign up"} />
-        <SubHeading label={"Enter your infromation to create an account"} />
-        <InputBox onChange={(e) => {
-          setFirstName(e.target.value)
-        }} placeholder="Farhan" label={"First Name"} />
-        <InputBox onChange={(e) => {
-          setLasttName(e.target.value)
-        }} placeholder="Bhatt" label={"Last Name"} />
-        <InputBox onChange={(e) => {
-          setUserName(e.target.value)
-        }} placeholder="bhatt@gmail.com" label={"Email"} />
-        <InputBox onChange={(e) => {
-          setPassword(e.target.value)
-        }} placeholder="123456" label={"Password"} />
-        <div className="pt-4">
-          <Button onClick={async () => {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/signup`, {
-              username,
-              password,
-              firstname,
-              lastname
-            })
-            localStorage.setItem("token", response.data.token)
-            navigate("/dashboard");
-          }} label={"Sign up"} />
-        </div>
-        <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
-      </div>
-    </div>
-  </div>
-}
+  const [loading, setLoading] = useState(false);
+
+  const handleSignup = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    if (
+      !firstname ||
+      !lastname ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await signup({
+        firstName: firstname,
+        lastName: lastname,
+        email,
+        password,
+      });
+
+      toast.success("Account created successfully!");
+
+      navigate("/dashboard");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message ||
+          "Signup failed."
+        );
+      } else {
+        toast.error("Something went wrong.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <AuthLayout>
+      <AuthHeader
+        title="Create Account 🚀"
+        subtitle="Join FlowPay and start sending money securely."
+        linkText="Already have an account?"
+        linkTo="/signin"
+      />
+
+      <AuthForm onSubmit={handleSignup}>
+        <Input
+          label="First Name"
+          placeholder="Enter your first name"
+          value={firstname}
+          onChange={setFirstname}
+          icon="user"
+        />
+
+        <Input
+          label="Last Name"
+          placeholder="Enter your last name"
+          value={lastname}
+          onChange={setLastname}
+          icon="user"
+        />
+
+        <Input
+          label="Email Address"
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={setEmail}
+          icon="email"
+        />
+
+        <PasswordInput
+          label="Password"
+          placeholder="Create a password"
+          value={password}
+          onChange={setPassword}
+        />
+
+        <PasswordInput
+          label="Confirm Password"
+          placeholder="Confirm your password"
+          value={confirmPassword}
+          onChange={setConfirmPassword}
+        />
+
+        <Button
+          type="submit"
+          loading={loading}
+          label={
+            loading
+              ? "Creating Account..."
+              : "Create Account"
+          }
+        />
+      </AuthForm>
+    </AuthLayout>
+  );
+};

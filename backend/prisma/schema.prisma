@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account Account?
+
+  sentTransactions     Transaction[] @relation("SentTransactions")
+  receivedTransactions Transaction[] @relation("ReceivedTransactions")
+
+  beneficiaries      Beneficiary[] @relation("OwnerBeneficiaries")
+  savedByUsers       Beneficiary[] @relation("SavedBeneficiary")
+}
+
+model Account {
+  id        String   @id @default(cuid())
+  balance   Decimal  @default(0)
+
+  userId    String   @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Transaction {
+  id         String @id @default(cuid())
+
+  senderId   String
+  receiverId String
+
+  amount Decimal
+  note   String?
+
+  status TransactionStatus @default(SUCCESS)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sender   User @relation("SentTransactions", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedTransactions", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([createdAt])
+}
+
+model Beneficiary {
+  id String @id @default(cuid())
+
+  ownerId       String
+  beneficiaryId String
+
+  createdAt DateTime @default(now())
+
+  owner       User @relation("OwnerBeneficiaries", fields: [ownerId], references: [id], onDelete: Cascade)
+  beneficiary User @relation("SavedBeneficiary", fields: [beneficiaryId], references: [id], onDelete: Cascade)
+
+  @@unique([ownerId, beneficiaryId])
+  @@index([ownerId])
+}
