@@ -1,7 +1,7 @@
 import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "flowpay_notifications";
+const STORAGE_KEY = "fabpay_notifications";
 
 interface NotificationSettings {
   email: boolean;

@@ -59,7 +59,7 @@ export const SignUp = () => {
         password,
       });
 
-      // Fetch logged-in user's profile immediately
+     
       await refreshUser();
 
       toast.success("Account created successfully!");
@@ -82,8 +82,8 @@ export const SignUp = () => {
   return (
     <AuthLayout>
       <AuthHeader
-        title="Create Account 🚀"
-        subtitle="Join FlowPay and start sending money securely."
+        title="Create Account 💳"
+        subtitle="Join FabPay and start sending money securely."
         linkText="Already have an account?"
         linkTo="/signin"
       />

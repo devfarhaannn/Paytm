@@ -12,7 +12,7 @@ app.use(express.json());
 app.get("/", (_, res) => {
   res.json({
     success: true,
-    message: "🚀 FlowPay Backend Running",
+    message: "💳 FabPay Backend Running",
   });
 });
 

@@ -24,7 +24,7 @@ export const Footer = () => {
               <div>
 
                 <h2 className="text-2xl font-bold text-white">
-                  FlowPay
+                  FabPay
                 </h2>
 
                 <p className="text-sm text-slate-400">
@@ -37,7 +37,7 @@ export const Footer = () => {
 
             <p className="mt-6 leading-7 text-slate-400">
               Fast, secure and modern digital payments.
-              FlowPay helps users transfer money instantly,
+              FabPay helps users transfer money instantly,
               manage balances and track every transaction
               with confidence.
             </p>
@@ -153,7 +153,7 @@ export const Footer = () => {
                 />
 
                 <span>
-                  support@flowpay.com
+                  support@fabwpay.com
                 </span>
 
               </div>
@@ -217,7 +217,7 @@ export const Footer = () => {
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
 
           <p className="text-sm text-slate-500">
-            © 2026 FlowPay. All Rights Reserved.
+            © 2026 FabPay. All Rights Reserved.
           </p>
 
           <div className="flex gap-8 text-sm">

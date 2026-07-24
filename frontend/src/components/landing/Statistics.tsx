@@ -11,7 +11,7 @@ const stats = [
     icon: Users,
     number: "10K+",
     title: "Active Users",
-    description: "People using FlowPay every day."
+    description: "People using FabPay every day."
   },
   {
     icon: Wallet,

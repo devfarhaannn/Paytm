@@ -41,7 +41,7 @@ export const SignIn = () => {
         password,
       });
 
-      // Fetch the logged-in user's profile immediately
+     
       await refreshUser();
 
       toast.success("Welcome Back!");
@@ -65,7 +65,7 @@ export const SignIn = () => {
     <AuthLayout>
       <AuthHeader
         title="Welcome Back 👋"
-        subtitle="Sign in to your FlowPay account to continue."
+        subtitle="Sign in to your FabPay account to continue."
         linkText="Don't have an account?"
         linkTo="/signup"
       />

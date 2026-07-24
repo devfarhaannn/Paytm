@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "FlowPay Backend",
+  "description": "FabPay Backend",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {

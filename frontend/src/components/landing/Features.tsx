@@ -65,7 +65,7 @@ import {
             className="text-center"
           >
             <h2 className="text-5xl font-bold text-slate-900">
-              Why Choose FlowPay?
+              Why Choose FabPay?
             </h2>
   
             <p className="mt-6 mx-auto max-w-2xl text-lg text-slate-500">

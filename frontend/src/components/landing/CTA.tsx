@@ -36,7 +36,7 @@ export const CTA = () => {
           viewport={{ once: true }}
           className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-indigo-100"
         >
-          Join thousands of users who trust FlowPay for
+          Join thousands of users who trust FabPay for
           secure, fast and reliable digital payments.
           Create your free account today.
         </motion.p>

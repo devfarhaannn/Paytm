@@ -11,7 +11,7 @@ const steps = [
     id: "01",
     title: "Create Account",
     description:
-      "Sign up in just a few seconds and create your secure FlowPay account.",
+      "Sign up in just a few seconds and create your secure FabPay account.",
     icon: UserPlus,
   },
   {
@@ -55,7 +55,7 @@ export const HowItWorks = () => {
           className="text-center"
         >
           <h2 className="text-5xl font-bold text-slate-900">
-            How FlowPay Works
+            How FabPay Works
           </h2>
 
           <p className="mt-6 text-slate-500 max-w-2xl mx-auto text-lg">

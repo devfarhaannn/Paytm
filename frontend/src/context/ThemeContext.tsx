@@ -16,7 +16,7 @@ interface ThemeContextType {
 const ThemeContext =
     createContext<ThemeContextType | null>(null);
 
-const STORAGE_KEY = "flowpay_theme";
+const STORAGE_KEY = "fabpay_theme";
 
 export const ThemeProvider = ({
     children,

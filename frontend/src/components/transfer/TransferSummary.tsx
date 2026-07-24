@@ -124,7 +124,7 @@ export const TransferSummary = ({
         <ArrowRight size={16} />
 
         <span>
-          Secure transfer powered by FlowPay
+          Secure transfer powered by FabPay
         </span>
       </div>
     </div>

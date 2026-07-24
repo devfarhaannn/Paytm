@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
-    question: "Is FlowPay secure?",
+    question: "Is FabPay secure?",
     answer:
-      "Yes. FlowPay uses JWT authentication and secure APIs to help protect user accounts and payment operations.",
+      "Yes. FabPay uses JWT authentication and secure APIs to help protect user accounts and payment operations.",
   },
   {
     question: "How can I transfer money?",
@@ -24,7 +24,7 @@ const faqs = [
       "Yes. You can save frequently used recipients as beneficiaries for faster future transfers.",
   },
   {
-    question: "Does FlowPay support QR payments?",
+    question: "Does FabPay support QR payments?",
     answer:
       "QR payments are planned as one of the upcoming premium features of the application.",
   },
@@ -60,7 +60,7 @@ export const FAQ = () => {
           </h2>
 
           <p className="mt-6 text-slate-500 text-lg">
-            Everything you need to know about FlowPay.
+            Everything you need to know about FabPay.
           </p>
 
         </motion.div>

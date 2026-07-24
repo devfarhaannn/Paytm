@@ -19,7 +19,7 @@ export const Navbar = () => {
           <div>
 
             <h1 className="text-2xl font-bold text-slate-900">
-              FlowPay
+              FabPay
             </h1>
 
             <p className="text-xs text-slate-500">

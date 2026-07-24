@@ -39,7 +39,7 @@ export const AuthBanner = () => {
           <div>
 
             <h1 className="text-3xl font-bold text-white">
-              FlowPay
+              FabPay
             </h1>
 
             <p className="text-slate-300">
@@ -205,7 +205,7 @@ export const AuthBanner = () => {
 
           <p className="text-sm text-slate-400">
 
-            © 2026 FlowPay
+            © 2026 FabPay
 
             <span className="mx-2">•</span>
 

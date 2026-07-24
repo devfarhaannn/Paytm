@@ -40,7 +40,7 @@ export const Hero = () => {
             </h1>
 
             <p className="mt-8 max-w-xl text-lg leading-8 text-slate-300">
-              FlowPay lets you securely transfer money, manage your balance,
+              FabPay lets you securely transfer money, manage your balance,
               and keep track of every transaction with a beautiful modern
               experience.
             </p>

@@ -10,7 +10,7 @@ export const generateReceipt = (
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(22);
 
-    pdf.text("FlowPay", 20, 20);
+    pdf.text("FabPay", 20, 20);
 
     pdf.setFontSize(16);
 
@@ -83,12 +83,12 @@ export const generateReceipt = (
     pdf.setFontSize(10);
 
     pdf.text(
-        "Thank you for using FlowPay.",
+        "Thank you for using FabPay.",
         20,
         y + 18
     );
 
     pdf.save(
-        `FlowPay-Receipt-${transaction.id}.pdf`
+        `FabPay-Receipt-${transaction.id}.pdf`
     );
 };
